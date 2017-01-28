@@ -1,0 +1,32 @@
+{
+    "name": "solution10/heat",
+    "description": "Brute force prevention helper lib.",
+    "keywords": ["brute force", "dictionary attack", "security"],
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Gisby",
+            "email": "alex@solution10.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "symfony/http-foundation": "^3.2",
+        "doctrine/cache": "^1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0",
+        "squizlabs/php_codesniffer": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Solution10\\Heat\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Solution10\\Heat\\Tests\\": "tests/"
+        }
+    }
+}
