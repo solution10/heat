@@ -37,7 +37,7 @@ class HeatTest extends TestCase
     public function testSetGetLifetime()
     {
         $h = new Heat('127.0.0.1', new ArrayCache());
-        $this->assertEquals(3600, $h->getLifetime());
+        $this->assertEquals(300, $h->getLifetime());
         $this->assertEquals($h, $h->setLifetime(60));
         $this->assertEquals(60, $h->getLifetime());
     }

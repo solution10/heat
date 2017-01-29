@@ -60,7 +60,7 @@ class Heat
     /**
      * @var     int
      */
-    protected $lifetime = 3600;
+    protected $lifetime = 300;
 
     /**
      * @param   string  $identifier
