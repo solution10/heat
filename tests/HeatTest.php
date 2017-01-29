@@ -89,9 +89,10 @@ class HeatTest extends TestCase
         $h->increase(20);
         $this->assertEquals($h, $h->write());
         $this->assertEquals(
-            ['temperature' => 20],
-            $c->fetch('s10heat_127.0.0.1')
+            20,
+            $c->fetch('s10heat_127.0.0.1')['temperature']
         );
+        $this->assertArrayHasKey('lastChange', $c->fetch('s10heat_127.0.0.1'));
     }
 
     public function testWriteCustomPrefix()
@@ -102,8 +103,28 @@ class HeatTest extends TestCase
         $h->increase(20);
         $this->assertEquals($h, $h->write());
         $this->assertEquals(
-            ['temperature' => 20],
-            $c->fetch('custom_127.0.0.1')
+            20,
+            $c->fetch('custom_127.0.0.1')['temperature']
+        );
+        $this->assertArrayHasKey('lastChange', $c->fetch('custom_127.0.0.1'));
+    }
+
+    public function testWriteOnlyOccursOnChange()
+    {
+        $lastTime = (new \DateTime('-3 minutes'))->format('c');
+        $c = new ArrayCache();
+        $c->save('s10heat_127.0.0.1', [
+            'temperature' => 20,
+            'lastChange' => $lastTime
+        ]);
+        $h = new Heat('127.0.0.1', $c);
+        $h->write();
+        $this->assertEquals(
+            [
+                'temperature' => 20,
+                'lastChange' => $lastTime,
+            ],
+            $c->fetch('s10heat_127.0.0.1')
         );
     }
 

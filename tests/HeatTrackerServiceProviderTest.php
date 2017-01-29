@@ -49,7 +49,7 @@ class HeatTrackerServiceProviderTest extends TestCase
         /* @var     \Solution10\Heat\Heat   $h  */
         $h = $app['s10.heat'];
         $this->assertEquals(20, $h->getTemperature());
-        $this->assertEquals(['temperature' => 20], $h->getStorage()->fetch('s10heat_192.168.192.10'));
+        $this->assertEquals(20, $h->getStorage()->fetch('s10heat_192.168.192.10')['temperature']);
     }
 
     public function testRespectsStorage()
@@ -71,7 +71,7 @@ class HeatTrackerServiceProviderTest extends TestCase
         /* @var     \Solution10\Heat\Heat   $h  */
         $h = $app['s10.heat'];
         $this->assertEquals(20, $h->getTemperature());
-        $this->assertEquals(['temperature' => 20], $h->getStorage()->fetch('s10heat_192.168.192.10'));
-        $this->assertEquals(['temperature' => 20], $c->fetch('s10heat_192.168.192.10'));
+        $this->assertEquals(20, $h->getStorage()->fetch('s10heat_192.168.192.10')['temperature']);
+        $this->assertEquals(20, $c->fetch('s10heat_192.168.192.10')['temperature']);
     }
 }

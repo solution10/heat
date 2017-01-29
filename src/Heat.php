@@ -40,6 +40,11 @@ class Heat
     /**
      * @var     int
      */
+    protected $initialTemperature = 0;
+
+    /**
+     * @var     int
+     */
     protected $temperature = 0;
 
     /**
@@ -73,7 +78,7 @@ class Heat
 
         $data = $this->storage->fetch($this->storagePrefix.$this->identifier);
         if ($data && is_array($data) && array_key_exists('temperature', $data)) {
-            $this->temperature = $data['temperature'];
+            $this->temperature = $this->initialTemperature = $data['temperature'];
         }
     }
 
@@ -84,11 +89,16 @@ class Heat
      */
     public function write()
     {
-        $this->storage->save(
-            $this->storagePrefix.$this->identifier,
-            ['temperature' => $this->temperature],
-            $this->lifetime
-        );
+        if ($this->temperature !== $this->initialTemperature) {
+            $this->storage->save(
+                $this->storagePrefix.$this->identifier,
+                [
+                    'temperature' => $this->temperature,
+                    'lastChange' => (new \DateTime())->format('c')
+                ],
+                $this->lifetime
+            );
+        }
         return $this;
     }
 
