@@ -156,8 +156,8 @@ $h->setLifetime(int $lifetime);
 
 ### Silex Service Provider
 
-The library provides a Service Provider for the [Silex microframework](silex.sensiolabs.org) which makes integration
-easy.
+The library provides a Service Provider for the [Silex microframework](http://silex.sensiolabs.org) which makes
+integration easy.
 
 Register the provider as normal:
 
